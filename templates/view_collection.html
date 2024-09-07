@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ collection.name }} - AI Image Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-white to-blue-200 min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <h1 class="text-4xl font-extrabold text-center text-gray-900 mb-6 tracking-tight">{{ collection.name }}</h1>
+        <p class="text-gray-700 text-center text-lg mb-12">{{ collection.description }}</p>
+
+        <!-- Edit Collection Button -->
+        <div class="text-center mb-12">
+            <a href="{{ url_for('edit_collection', collection_id=collection.id) }}" class="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-150">
+                Edit Collection
+            </a>
+        </div>
+
+        <!-- Image Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for image in collection.images %}
+            <div class="bg-white rounded-3xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl">
+                <img src="data:image/png;base64,{{ image.image_data }}" alt="Generated Image" class="w-full h-64 object-cover rounded-t-3xl">
+                <div class="p-6">
+                    <p class="text-gray-700 text-sm mb-2 font-medium">Prompt: {{ image.prompt }}</p>
+                    <p class="text-gray-500 text-xs mb-4">Created: {{ image.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                    <div class="mt-2">
+                        <h4 class="text-sm font-semibold mb-2">Tags:</h4>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            {% for tag in image.tags %}
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-lg">
+                                {{ tag.name }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <form action="{{ url_for('remove_from_collection', image_id=image.id, collection_id=collection.id) }}" method="POST" class="mt-2">
+                        <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg shadow focus:outline-none focus:ring-4 focus:ring-red-300 transition duration-150">
+                            Remove from Collection
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Empty Collection Message -->
+        {% if not collection.images %}
+        <p class="text-center text-gray-700 mt-16 text-lg">This collection is empty.</p>
+        {% endif %}
+
+        <!-- Back to My Images Button -->
+        <div class="mt-12 text-center">
+            <a href="{{ url_for('my_images') }}" class="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-150">
+                Back to My Images
+            </a>
+        </div>
+    </div>
+</body>
+</html>

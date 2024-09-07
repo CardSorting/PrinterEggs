@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Credits - AI Image Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
+
+    <!-- Accessibility and SEO Enhancements -->
+    <meta name="description" content="Purchase credits to generate AI images on the AI Image Generator platform.">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+</head>
+
+<body class="bg-gradient-to-br from-green-100 via-white to-green-200 min-h-screen flex items-center justify-center">
+    <div class="container mx-auto px-4">
+        <!-- Main Container -->
+        <div class="max-w-lg mx-auto bg-white rounded-3xl shadow-lg md:max-w-2xl border border-gray-100 transition-shadow duration-300 hover:shadow-2xl hover:scale-105" aria-label="Credit Purchase Section">
+            <!-- Header -->
+            <header class="p-6 border-b border-gray-200">
+                <h1 class="text-3xl font-extrabold text-center text-gray-900 mb-4">Buy Credits</h1>
+                <div class="flex justify-between items-center">
+                    <span class="text-lg font-medium text-gray-800">Hello, <strong>{{ current_user.username }}</strong>!</span>
+                    <a href="{{ url_for('main.index') }}" class="text-blue-600 hover:text-blue-800 transition-colors duration-200 font-semibold" aria-label="Back to AI Image Generator page">Back to Generator</a>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="p-6">
+                <!-- Current Credits Section -->
+                <section class="mb-8 p-4 bg-green-50 rounded-lg border border-green-200" aria-label="Current Credits">
+                    <p class="text-gray-700 font-medium">Your current balance: <span class="text-green-600 font-bold">{{ current_user.credits }}</span> credits.</p>
+                    <p class="text-sm text-gray-500 mt-2">Each image generation costs 12 credits. Choose a package below to buy more credits:</p>
+                </section>
+
+                <!-- Purchase Options -->
+                <section class="mb-8" aria-label="Purchase Options">
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Credit Options Buttons -->
+                        <button class="credit-option bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50" data-credits="100" aria-label="Buy 100 Credits for $1.00">Buy 100 Credits - $1.00</button>
+                        <button class="credit-option bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50" data-credits="500" aria-label="Buy 500 Credits for $5.00">Buy 500 Credits - $5.00</button>
+                        <button class="credit-option bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50" data-credits="1000" aria-label="Buy 1000 Credits for $10.00">Buy 1000 Credits - $10.00</button>
+                        <button class="credit-option bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50" data-credits="5000" aria-label="Buy 5000 Credits for $50.00">Buy 5000 Credits - $50.00</button>
+                    </div>
+                    <div id="error-message" class="text-red-500 text-sm mt-4 hidden" role="alert" aria-live="assertive"></div>
+                </section>
+
+                <!-- Action Buttons -->
+                <section class="flex justify-between mt-6" aria-label="Action Buttons">
+                    <a href="{{ url_for('main.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-gray-400 focus:ring-opacity-50" aria-label="Go back to AI Image Generator page">Back</a>
+                    <a href="{{ url_for('main.logout') }}" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-red-400 focus:ring-opacity-50" aria-label="Logout from your account">Logout</a>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/credits.js') }}"></script>
+</body>
+
+</html>

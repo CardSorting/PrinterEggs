@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>404 Not Found</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="text-center">
+        <h1 class="text-6xl font-bold text-gray-800">404</h1>
+        <p class="text-2xl text-gray-600 mt-4">Page Not Found</p>
+        <a href="{{ url_for('main.index') }}" class="mt-6 inline-block bg-blue-500 text-white py-2 px-4 rounded">Go Home</a>
+    </div>
+</body>
+</html>
